@@ -49,6 +49,9 @@ class FoodRecognition:
             invalid_count = 0
             for img_name in sorted(glob.glob(root)):
                 img_arr = img.imread(img_name)
+                if img_arr.shape[2]==4:
+            
+                    img_arr = cv2.cvtColor(img_arr, cv2.COLOR_BGR2RGB)
                 img_arr_rs = img_arr
                 try:
                     w, h, _ = img_arr.shape

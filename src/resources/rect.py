@@ -5,7 +5,7 @@ import logging
 import magic
 import cv2
 from flask.json import jsonify
-from app import model
+# from app import model
 from repositories import FoodRecognition
 
 import keras
@@ -40,7 +40,7 @@ class RectResource(Resource):
 
     def get(self):
         args            = parser.parse_args()
-        food_recog      = FoodRecognition(config.FILE_STORAGE_PATH,model, self.process_image)
+        food_recog      = FoodRecognition(config.FILE_STORAGE_PATH,None, self.process_image)
         recipe_name     = food_recog.main()
         # keras.backend.tensorflow_backend.clear_session()
 

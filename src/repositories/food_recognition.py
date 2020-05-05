@@ -17,8 +17,7 @@ from ipywidgets import interact, interactive, fixed
 import ipywidgets as widgets
 import json
 import h5py
-import keras
-from keras.applications.inception_v3 import preprocess_input
+
 
 import matplotlib.image as img
 import glob
@@ -34,10 +33,12 @@ ix_to_class={"0": "apple_pie", "1": "baby_back_ribs", "2": "baklava", "3": "beef
 class FoodRecognition:
 
     model = None
+    process_image = None
 
-    def __init__(self, filepath,model):
+    def __init__(self, filepath,model, process_image):
         self.filepath = filepath
         self.model = model
+        self.process_image = process_image
     
 
     def load_images(self):
@@ -79,7 +80,7 @@ class FoodRecognition:
     def model_predict(self,img,model):
         top_n=5
         x=np.reshape(img,(1,299,299,3))
-        x =preprocess_input(x.astype('float32'))   
+        x =self.process_image(x.astype('float32'))   
         y_pred = model.predict(x)
         #print(x.shape)
         preds = np.argmax(y_pred, axis=1)
@@ -98,5 +99,4 @@ class FoodRecognition:
     def main(self):
         img = self.load_images()
         result= self.model_predict(img,self.model)
-        keras.backend.tensorflow_backend.clear_session()
         return result

@@ -10,6 +10,7 @@ server  = Flask(__name__)
 print('Flask starting')
 print('Loading model')
 model = load_model(config.MODEL_STORAGE_PATH)
+model._make_predict_function()
 print('Model loaded')
 
 # model = load_model(config.MODEL_STORAGE_PATH)
@@ -23,6 +24,6 @@ for blueprint in vars(routes).values():
 
 if __name__ == "__main__":
     #print("server details",server.url_map)
-    server.run(host=config.HOST, port=config.PORT, debug=False)
+    server.run(host=config.HOST, port=config.PORT, debug=True)
     
 print('Flask started')

@@ -5,8 +5,8 @@ DEBUG = True
 API_URL_PREFIX = "/api/v1"
 HOST = 'localhost'
 PORT = 6006
-FILE_STORAGE_PATH =  '/home/ubuntu/workspace/Food_Recognition_API/src/sample_images/pizza.jpg'#'/home/naresh/Tarento/Food_Recognition/Food_Recognition_API/src/sample_images/pancake.jpg' #'/home/dddhiraj/Documents/Tarento/Anuwad/Tabular_data_extraction/sample_images'# '/Users/kd/Workspace/python/github/data/input/' #
-MODEL_STORAGE_PATH =  '/opt/models/model4b.10-0.68.hdf5'
+FILE_STORAGE_PATH =  '/home/naresh/Food_Recognition_API/src/sample_images/pancake.jpg'#'/home/naresh/Tarento/Food_Recognition/Food_Recognition_API/src/sample_images/pancake.jpg' #'/home/dddhiraj/Documents/Tarento/Anuwad/Tabular_data_extraction/sample_images'# '/Users/kd/Workspace/python/github/data/input/' #
+MODEL_STORAGE_PATH =  '/home/naresh/model4b.10-0.68.hdf5'
 ENABLE_CORS = False
 
 

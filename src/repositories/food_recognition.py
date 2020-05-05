@@ -17,6 +17,7 @@ from ipywidgets import interact, interactive, fixed
 import ipywidgets as widgets
 import json
 import h5py
+import keras
 from keras.applications.inception_v3 import preprocess_input
 
 import matplotlib.image as img
@@ -97,4 +98,5 @@ class FoodRecognition:
     def main(self):
         img = self.load_images()
         result= self.model_predict(img,self.model)
+        keras.backend.tensorflow_backend.clear_session()
         return result

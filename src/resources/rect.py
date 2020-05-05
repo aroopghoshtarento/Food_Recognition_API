@@ -5,8 +5,9 @@ import logging
 import magic
 import cv2
 from flask.json import jsonify
+from app import model
 from repositories import FoodRecognition
-from keras.models import load_model
+
 import keras
 from keras.applications.inception_v3 import preprocess_input
 
@@ -30,22 +31,18 @@ parser.add_argument('Content-Type', location='headers', type=str, help='Please s
 
 class RectResource(Resource):
 
-    model = None
     process_image = None
 
     def __init__(self):
-        if self.model is None:
-            print('loading model')
-            self.model = load_model(config.MODEL_STORAGE_PATH)
         if self.process_image is None:
             self.process_image = preprocess_input
 
 
     def get(self):
         args            = parser.parse_args()
-        food_recog      = FoodRecognition(config.FILE_STORAGE_PATH,self.model, self.process_image)
+        food_recog      = FoodRecognition(config.FILE_STORAGE_PATH,model, self.process_image)
         recipe_name     = food_recog.main()
-        keras.backend.tensorflow_backend.clear_session()
+        # keras.backend.tensorflow_backend.clear_session()
 
         return {
             'status': {

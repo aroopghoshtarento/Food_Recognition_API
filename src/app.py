@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 import config
 import routes
-# from keras.models import load_model
+from keras.models import load_model
 
 server  = Flask(__name__)
 
@@ -21,6 +21,7 @@ if __name__ == "__main__":
     #print("server details",server.url_map)
     print('Flask starting')
     print('Loading model')
+    model = load_model(config.MODEL_STORAGE_PATH)
     print('Model loaded')
     server.run(host=config.HOST, port=config.PORT, debug=False)
     

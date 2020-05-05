@@ -7,7 +7,7 @@ import routes
 from model_loader import ModelLoader
 
 server  = Flask(__name__)
-ModelLoader()
+
 
 if config.ENABLE_CORS:
     cors    = CORS(server, resources={r"/api/*": {"origins": "*"}})
@@ -19,3 +19,4 @@ for blueprint in vars(routes).values():
 if __name__ == "__main__":
     #print("server details",server.url_map)
     server.run(host=config.HOST, port=config.PORT, debug=True)
+    ModelLoader()

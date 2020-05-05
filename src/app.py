@@ -19,8 +19,9 @@ for blueprint in vars(routes).values():
 
 if __name__ == "__main__":
     #print("server details",server.url_map)
-    server.run(host=config.HOST, port=config.PORT, debug=True)
     print('Flask starting')
     print('Loading model')
     print('Model loaded')
+    server.run(host=config.HOST, port=config.PORT, debug=False)
+    
 print('Flask started')

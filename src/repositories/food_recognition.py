@@ -23,6 +23,8 @@ import matplotlib.image as img
 import glob
 import cv2
 
+from model_loader import ModelLoader
+
 
 
 
@@ -35,9 +37,9 @@ class FoodRecognition:
     model = None
     process_image = None
 
-    def __init__(self, filepath,model, process_image):
+    def __init__(self, filepath, process_image):
         self.filepath = filepath
-        self.model = model
+        self.model = ModelLoader()
         self.process_image = process_image
     
 
@@ -98,5 +100,5 @@ class FoodRecognition:
 
     def main(self):
         img = self.load_images()
-        result= self.model_predict(img,self.model)
+        result= self.model_predict(img,self.model.getModel())
         return result

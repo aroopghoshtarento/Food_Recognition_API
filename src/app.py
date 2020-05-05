@@ -4,8 +4,11 @@ from flask_cors import CORS
 
 import config
 import routes
+from model_loader import ModelLoader
 
 server  = Flask(__name__)
+ModelLoader()
+
 if config.ENABLE_CORS:
     cors    = CORS(server, resources={r"/api/*": {"origins": "*"}})
 

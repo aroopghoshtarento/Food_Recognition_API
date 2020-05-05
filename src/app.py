@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 import config
 import routes
-from keras.models import load_model
+# from keras.models import load_model
 
 server  = Flask(__name__)
 print('Loading model')

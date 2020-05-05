@@ -8,8 +8,8 @@ from flask.json import jsonify
 # from app import model
 from repositories import FoodRecognition
 
-import keras
-from keras.applications.inception_v3 import preprocess_input
+# import keras
+# from keras.applications.inception_v3 import preprocess_input
 
 def check_image_file_id(id):
     if os.path.exists(os.path.join(config.FILE_STORAGE_PATH, id)) and os.path.isfile(os.path.join(config.FILE_STORAGE_PATH, id)):
@@ -35,7 +35,7 @@ class RectResource(Resource):
 
     def __init__(self):
         if self.process_image is None:
-            self.process_image = preprocess_input
+            self.process_image = None
 
 
     def get(self):

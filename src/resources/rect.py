@@ -34,6 +34,7 @@ class RectResource(Resource):
 
     def __init__(self):
         if self.model is None:
+            print('loading model')
             self.model = load_model(config.MODEL_STORAGE_PATH)
         if self.process_image is None:
             self.process_image = preprocess_input

@@ -18,7 +18,7 @@ import ipywidgets as widgets
 import json
 import h5py
 from keras.applications.inception_v3 import preprocess_input
-from keras.models import load_model
+
 import matplotlib.image as img
 import glob
 import cv2
@@ -32,13 +32,12 @@ ix_to_class={"0": "apple_pie", "1": "baby_back_ribs", "2": "baklava", "3": "beef
 
 class FoodRecognition:
 
-    def __init__(self, filepath,model_path):
+    model = None
+
+    def __init__(self, filepath,model):
         self.filepath = filepath
-        self.model_path = model_path
-    def load_trained_model(self):
-        model_path = self.model_path
-        model = load_model(model_path)
-        return model
+        self.model = model
+    
 
     def load_images(self):
             root = self.filepath
@@ -96,8 +95,6 @@ class FoodRecognition:
 
 
     def main(self):
-        model = self.load_trained_model()
-        
         img = self.load_images()
-        result= self.model_predict(img,model)
+        result= self.model_predict(img,self.model)
         return result

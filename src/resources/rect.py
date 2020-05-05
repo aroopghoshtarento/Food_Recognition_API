@@ -6,6 +6,7 @@ import magic
 import cv2
 from flask.json import jsonify
 from repositories import FoodRecognition
+from keras.models import load_model
 
 def check_image_file_id(id):
     if os.path.exists(os.path.join(config.FILE_STORAGE_PATH, id)) and os.path.isfile(os.path.join(config.FILE_STORAGE_PATH, id)):
@@ -26,9 +27,17 @@ parser.add_argument('Content-Type', location='headers', type=str, help='Please s
 #parser.add_argument('image_file_id', location='json', type=check_image_file_id, help='Please provide valid image_file_id in JPEG/PNG format', required=True)
 
 class RectResource(Resource):
+
+    model = None
+
+    def __init__(self):
+        if self.model is None:
+            self.model = load_model(config.MODEL_STORAGE_PATH)
+
+
     def get(self):
         args            = parser.parse_args()
-        food_recog      = FoodRecognition(config.FILE_STORAGE_PATH,config.MODEL_STORAGE_PATH)
+        food_recog      = FoodRecognition(config.FILE_STORAGE_PATH,self.model)
         recipe_name     = food_recog.main()
 
         return {

@@ -8,7 +8,7 @@ from keras.models import load_model
 
 server  = Flask(__name__)
 print('Loading model')
-model = load_model(config.MODEL_STORAGE_PATH)
+# model = load_model(config.MODEL_STORAGE_PATH)
 print('Model loaded')
 if config.ENABLE_CORS:
     cors    = CORS(server, resources={r"/api/*": {"origins": "*"}})

@@ -27,6 +27,8 @@ def check_image_file_id(id):
 
 parser = reqparse.RequestParser(bundle_errors=True)
 parser.add_argument('Content-Type', location='headers', type=str, help='Please set Content-Type as application/json')
+parser.add_argument('video_file_id', location='json', type=str, help='Please provide valid video_file_id in MPEG4/MP4 format', required=True)
+parser.add_argument('image_file_id', location='json', type=str, help='Please provide valid image_file_id in JPEG/PNG format', required=True)
 #parser.add_argument('image_file_id', location='json', type=check_image_file_id, help='Please provide valid image_file_id in JPEG/PNG format', required=True)
 
 class RectResource(Resource):
@@ -39,14 +41,6 @@ class RectResource(Resource):
 
     def post(self):
         args    = parser.parse_args()
-        print(args)
-        if 'image_file_id' not in args or args['image_file_id'] is None:
-             return {
-                'status': {
-                    'code' : 400,
-                    'message' : 'data missing'
-                }
-            }
         food_recog      = FoodRecognition(os.path.join(config.IMAGE_BASE_PATH, args['image_file_id']), model, self.process_image)
         recipe_name     = food_recog.main()
         # keras.backend.tensorflow_backend.clear_session()

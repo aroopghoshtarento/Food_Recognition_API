@@ -4,6 +4,8 @@ import config
 import logging
 import magic
 import cv2
+import numpy as np
+import  json
 from flask.json import jsonify
 from app import model
 from repositories import FoodRecognition
@@ -27,7 +29,6 @@ def check_image_file_id(id):
 
 parser = reqparse.RequestParser(bundle_errors=True)
 parser.add_argument('Content-Type', location='headers', type=str, help='Please set Content-Type as application/json')
-parser.add_argument('image_file_id', location='json', type=str, help='Please provide valid image_file_id in JPEG/PNG format', required=True)
 #parser.add_argument('image_file_id', location='json', type=check_image_file_id, help='Please provide valid image_file_id in JPEG/PNG format', required=True)
 
 class RectResource(Resource):
@@ -40,16 +41,31 @@ class RectResource(Resource):
 
     def post(self):
         args    = parser.parse_args()
+        if 'image_file_id' not in args or args['image_file_id'] is None:
+             return {
+                'status': {
+                    'code' : 400,
+                    'message' : 'data missing'
+                }
+            }
         food_recog      = FoodRecognition(os.path.join(config.IMAGE_BASE_PATH, args['image_file_id']), model, self.process_image)
         recipe_name     = food_recog.main()
-        # keras.backend.tensorflow_backend.clear_session()
-
+        dicts ={}
+        for i in recipe_name:
+            key=None
+            value=None
+            for x,k in enumerate(i):
+                if x==0:
+                    key = k
+                if x==1:
+                    value = "{:.4f}".format(k)
+            dicts[key] = value
         return {
             'status': {
                 'code' : 200,
                 'message' : 'api successful'
             },
-            'recipe_name': str(recipe_name)
+            'recipe_name': jsonify(dicts)
         }
 
 
@@ -57,12 +73,20 @@ class RectResource(Resource):
         args            = parser.parse_args()
         food_recog      = FoodRecognition(config.FILE_STORAGE_PATH, model, self.process_image)
         recipe_name     = food_recog.main()
-        # keras.backend.tensorflow_backend.clear_session()
-
+        dicts ={}
+        for i in recipe_name:
+            key=None
+            value=None
+            for x,k in enumerate(i):
+                if x==0:
+                    key = k
+                if x==1:
+                    value = "{:.4f}".format(k)
+            dicts[key] = value
         return {
             'status': {
                 'code' : 200,
                 'message' : 'api successful'
             },
-            'recipe_name': str(recipe_name)
+            'recipe_name': jsonify(dicts)
         }

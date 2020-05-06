@@ -27,7 +27,6 @@ def check_image_file_id(id):
 
 parser = reqparse.RequestParser(bundle_errors=True)
 parser.add_argument('Content-Type', location='headers', type=str, help='Please set Content-Type as application/json')
-parser.add_argument('video_file_id', location='json', type=str, help='Please provide valid video_file_id in MPEG4/MP4 format', required=True)
 parser.add_argument('image_file_id', location='json', type=str, help='Please provide valid image_file_id in JPEG/PNG format', required=True)
 #parser.add_argument('image_file_id', location='json', type=check_image_file_id, help='Please provide valid image_file_id in JPEG/PNG format', required=True)
 

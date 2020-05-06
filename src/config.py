@@ -7,6 +7,7 @@ HOST = 'localhost'
 PORT = 6006
 FILE_STORAGE_PATH =  '/home/naresh/Food_Recognition_API/src/sample_images/pancake.jpg'#'/home/naresh/Tarento/Food_Recognition/Food_Recognition_API/src/sample_images/pancake.jpg' #'/home/dddhiraj/Documents/Tarento/Anuwad/Tabular_data_extraction/sample_images'# '/Users/kd/Workspace/python/github/data/input/' #
 MODEL_STORAGE_PATH =  '/home/naresh/model4b.10-0.68.hdf5'
+IMAGE_BASE_PATH = '/opt/nginx/'
 ENABLE_CORS = False
 
 

@@ -37,10 +37,31 @@ class RectResource(Resource):
         if self.process_image is None:
             self.process_image = preprocess_input
 
+    def post(self):
+        args    = parser.parse_args()
+        if 'image_file_id' not in args or args['image_file_id'] is None:
+             return {
+                'status': {
+                    'code' : 400,
+                    'message' : 'data missing'
+                }
+            }
+        food_recog      = FoodRecognition(os.path.join(config.IMAGE_BASE_PATH, args['image_file_id']), model, self.process_image)
+        recipe_name     = food_recog.main()
+        # keras.backend.tensorflow_backend.clear_session()
+
+        return {
+            'status': {
+                'code' : 200,
+                'message' : 'api successful'
+            },
+            'recipe_name': str(recipe_name)
+        }
+
 
     def get(self):
         args            = parser.parse_args()
-        food_recog      = FoodRecognition(config.FILE_STORAGE_PATH,model, self.process_image)
+        food_recog      = FoodRecognition(config.FILE_STORAGE_PATH, model, self.process_image)
         recipe_name     = food_recog.main()
         # keras.backend.tensorflow_backend.clear_session()
 

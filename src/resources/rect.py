@@ -65,7 +65,7 @@ class RectResource(Resource):
                 'code' : 200,
                 'message' : 'api successful'
             },
-            'recipe_name': jsonify(dicts)
+            'recipe_name': dicts
         }
 
 
@@ -88,5 +88,5 @@ class RectResource(Resource):
                 'code' : 200,
                 'message' : 'api successful'
             },
-            'recipe_name': jsonify(dicts)
+            'recipe_name': dicts
         }

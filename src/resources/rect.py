@@ -39,6 +39,7 @@ class RectResource(Resource):
 
     def post(self):
         args    = parser.parse_args()
+        print(args)
         if 'image_file_id' not in args or args['image_file_id'] is None:
              return {
                 'status': {
